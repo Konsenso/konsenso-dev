@@ -2,7 +2,7 @@
 
 Lessons on how to stress-test AI systems before you ship them: red teaming, evals, and keeping evidence you can show someone later.
 
-Built with Astro and Starlight. The landing page is one hand-built file in `src/pages/index.astro`. Everything else is docs.
+Built with Astro and Starlight.
 
 ## Run it locally
 
