@@ -14,8 +14,31 @@ It's written for the person who's been handed an AI feature and a launch date:
 developers, platform teams, and security engineers who need to know whether the
 thing is safe to ship, and be able to show *why*.
 
-Two practices do most of the work, and mature teams do both. Red teaming finds
-the problems. Evals tell you whether they're getting better or worse.
+Two words come up constantly, and they get used interchangeably even though
+they answer different questions: safety and security. A system can pass one and
+fail the other, so it helps to keep them apart.
+
+## What is AI safety
+
+Safety asks a plain question: does the system cause harm on its own? No attacker
+required. A model that is safe to ship can still produce dangerous, false, or
+biased output, mishandle a sensitive request, or refuse things it should
+answer. Safety problems are about behaviour, so you find them by looking at what
+the system does across normal and edge-case use, not only when someone is
+attacking it.
+
+## What is AI security
+
+Security asks a different question: can someone make it misbehave on purpose?
+Here there is an attacker, deliberately crafting input to bend the system to
+their goals: leaking its instructions, pulling out data it holds, or abusing a
+tool it can call. Security problems are about threats, so you find them by
+thinking like the attacker and working through what they would try.
+
+The line between the two blurs in practice. A jailbreak is a security problem,
+an attacker slipping past a guardrail, whose payoff is a safety problem, the
+harmful output that guardrail was there to stop. You test for both, and two
+practices do most of that work. Mature teams use both.
 
 ## What is AI red teaming
 
