@@ -12,7 +12,7 @@ const links = [
     <a class="brand" href="/">
       <span class="brand-name">konsenso<span class="brand-os">.dev</span></span>
     </a>
-    <details class="nav-menu" open>
+    <details class="nav-menu">
       <summary>Menu</summary>
       <ul class="nav-links">{links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
     </details>
@@ -25,8 +25,7 @@ const links = [
     display: flex;
     align-items: center;
     gap: 24px;
-    padding: 4px 0;
-    max-width: 1120px;
+    padding-block: 4px;
   }
   .brand { display: flex; align-items: center; gap: 10px; }
   .brand-name {
@@ -37,7 +36,7 @@ const links = [
     font-size: 1.1rem;
   }
   .brand-os { color: var(--blue); }
-  .nav-menu { margin-left:auto; }
+  .nav-menu { margin-left:auto; position:relative; }
   .nav-menu summary { display:none; }
   .nav-links { display: flex; gap: 24px; list-style: none; margin: 0; padding: 0; }
   .nav-links a { font-size: 0.94rem; color: var(--body); transition: color 0.15s; }
@@ -45,6 +44,10 @@ const links = [
   a:focus-visible, summary:focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
   .nav-menu summary { cursor:pointer; color:var(--ink); font-size:.94rem; font-weight:600; list-style:none; }
   .nav-menu summary::-webkit-details-marker { display:none; }
+  /* Desktop: no toggle. Links stay visible even though <details> is closed. */
+  @media (min-width: 769px) {
+    .nav-menu::details-content { content-visibility: visible; }
+  }
   @media (max-width: 768px) {
     .nav-menu summary { display:block; }
     .nav-menu .nav-links { position:absolute; right:0; top:calc(100% + 12px); min-width:150px; display:block; margin:0; padding:10px 14px; background:var(--surface); border:1px solid var(--border); box-shadow:var(--shadow-card); }
