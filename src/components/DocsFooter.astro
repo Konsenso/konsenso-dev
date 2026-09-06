@@ -1,0 +1,25 @@
+---
+// Overrides Starlight's Footer on every docs page: renders the default footer
+// (pagination, last-updated, edit link) and appends a site-wide license note.
+import Default from "@astrojs/starlight/components/Footer.astro";
+---
+
+<Default><slot /></Default>
+
+<p class="license-note">
+  Code on this site is <a href="https://github.com/Konsenso/konsenso-dev/blob/main/LICENSE">MIT licensed</a>. The lessons are shared under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>.
+</p>
+
+<style>
+  .license-note {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--sl-color-hairline-shade);
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-3);
+  }
+  .license-note a {
+    color: var(--k-link);
+    text-underline-offset: 0.2em;
+  }
+</style>

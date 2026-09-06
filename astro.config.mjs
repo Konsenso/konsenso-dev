@@ -16,6 +16,8 @@ export default defineConfig({
   integrations: [
     starlight({
       title: "konsenso.dev",
+      // Append a site-wide license note under the default footer on every docs page.
+      components: { Footer: "./src/components/DocsFooter.astro" },
       description:
         "Learn how to stress-test AI systems before you deploy them — red teaming, evals, and inspectable evidence, for developers.",
       // Fonts are self-hosted via @fontsource (no CDN). The theme file maps the
