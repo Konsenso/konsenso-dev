@@ -1,0 +1,14 @@
+# Netlify site for konsenso.dev.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# The site is not indexed yet. Remove this block (and the noindex meta in
+# astro.config.mjs + src/layouts/Landing.astro) to allow search indexing.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"

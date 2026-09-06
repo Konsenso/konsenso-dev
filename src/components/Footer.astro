@@ -1,0 +1,63 @@
+---
+// Landing-page footer, ported from Konsenso Labs.
+const cols = [
+  {
+    heading: "Learn",
+    links: [
+      { label: "Start here", href: "/start-here/" },
+      { label: "Resources", href: "/resources/" },
+    ],
+  },
+  {
+    heading: "Contact",
+    links: [
+      { label: "Contact", href: "mailto:hello@konsenso.ai" },
+    ],
+  },
+];
+---
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="brand" href="/">
+        <span class="brand-name">konsenso<span class="brand-os">.dev</span></span>
+      </a>
+      <p class="footer-tag">Learn to test, break, and fix AI.</p>
+    </div>
+    {cols.map((col) => (
+      <div class="footer-col">
+        <h5>{col.heading}</h5>
+        {col.links.map((l) => <a href={l.href}>{l.label}</a>)}
+      </div>
+    ))}
+  </div>
+  <div class="container footer-base">
+    <span class="footer-license">
+      Code is open source under the <a href="https://github.com/Konsenso/konsenso-dev/blob/main/LICENSE">MIT License</a>.
+      Lessons are shared under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>.
+    </span>
+  </div>
+</footer>
+
+<style>
+  .footer { background: var(--bg-alt); border-top: 1px solid var(--border); padding-top: 56px; padding-bottom: 28px; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 32px; padding-bottom: 48px; }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-name { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.03em; color: var(--ink); font-size: 1.1rem; }
+  .brand-os { color: var(--blue); }
+  .footer-tag { color: var(--muted); font-size: 0.96rem; margin-top: 14px; max-width: 28ch; }
+  .footer-col h5 { font-size: 0.82rem; color: var(--muted); margin: 0 0 16px; font-weight: 600; }
+  .footer-col a { display: block; color: var(--body); font-size: 0.96rem; margin-bottom: 10px; transition: color 0.15s; }
+  .footer-col a:hover { color: var(--blue); }
+  .footer-base {
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 24px; border-top: 1px solid var(--border);
+    color: var(--muted); font-size: 0.88rem;
+  }
+  .footer-license { max-width: 62ch; }
+  .footer-license a { color: var(--body); text-decoration: underline; text-underline-offset: 2px; transition: color 0.15s; }
+  .footer-license a:hover { color: var(--blue); }
+  @media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .footer-grid { grid-template-columns: 1fr; } }
+</style>

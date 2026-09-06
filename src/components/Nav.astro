@@ -1,0 +1,53 @@
+---
+// Landing-page pill nav, ported from Konsenso Labs. Links point into the
+// docs (served by Starlight) and out to the main product site.
+const links = [
+  { label: "Docs", href: "/start-here/" },
+  { label: "GitHub", href: "https://github.com/Konsenso/konsenso-dev" },
+];
+---
+
+<header class="nav-wrap">
+  <nav class="nav container">
+    <a class="brand" href="/">
+      <span class="brand-name">konsenso<span class="brand-os">.dev</span></span>
+    </a>
+    <details class="nav-menu" open>
+      <summary>Menu</summary>
+      <ul class="nav-links">{links.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+    </details>
+  </nav>
+</header>
+
+<style>
+  .nav-wrap { position: sticky; top: 0; z-index: 50; padding: 18px 0 4px; background: color-mix(in srgb, var(--bg) 92%, transparent); backdrop-filter: blur(12px); }
+  .nav {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 4px 0;
+    max-width: 1120px;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    font-size: 1.1rem;
+  }
+  .brand-os { color: var(--blue); }
+  .nav-menu { margin-left:auto; }
+  .nav-menu summary { display:none; }
+  .nav-links { display: flex; gap: 24px; list-style: none; margin: 0; padding: 0; }
+  .nav-links a { font-size: 0.94rem; color: var(--body); transition: color 0.15s; }
+  .nav-links a:hover { color: var(--ink); }
+  a:focus-visible, summary:focus-visible { outline: 3px solid var(--orange); outline-offset: 4px; }
+  .nav-menu summary { cursor:pointer; color:var(--ink); font-size:.94rem; font-weight:600; list-style:none; }
+  .nav-menu summary::-webkit-details-marker { display:none; }
+  @media (max-width: 768px) {
+    .nav-menu summary { display:block; }
+    .nav-menu .nav-links { position:absolute; right:0; top:calc(100% + 12px); min-width:150px; display:block; margin:0; padding:10px 14px; background:var(--surface); border:1px solid var(--border); box-shadow:var(--shadow-card); }
+    .nav-menu li + li { margin-top:8px; }
+  }
+</style>

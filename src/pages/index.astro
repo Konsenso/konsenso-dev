@@ -1,0 +1,64 @@
+---
+import Landing from "../layouts/Landing.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+
+const steps = [
+  { n: "01", label: "Safety vs security", href: "/start-here/#two-words-two-questions" },
+  { n: "02", label: "What goes wrong", href: "/start-here/#what-actually-goes-wrong" },
+  { n: "03", label: "Red teams vs evals", href: "/start-here/#two-ways-to-test" },
+  { n: "04", label: "Turn tests into evidence", href: "/start-here/#testing-only-counts-if-it-produces-evidence" },
+];
+---
+
+<Landing>
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <Nav />
+  <main id="main-content">
+    <section class="hero container">
+      <div class="hero-copy">
+        <h1>Learn to test, break, and fix AI.</h1>
+        <p class="lede">Practical lessons for PMs, engineers, security teams, and anyone who cares about AI safety and security.</p>
+        <div class="actions"><a class="button primary" href="/start-here/">Start with the fundamentals</a><a class="button secondary" href="https://github.com/Konsenso/konsenso-dev">View on GitHub <span aria-hidden="true">↗</span></a></div>
+      </div>
+      <div class="start-here">
+        <div class="starfield"></div>
+        <span class="glow glow-blue sh-glow"></span>
+        <div class="sh-inner">
+          <h2>Start here</h2>
+          <div class="sh-list">
+            {steps.map((s) => (
+              <a href={s.href}>
+                <span class="sh-num">{s.n}</span>
+                <span class="sh-label">{s.label}</span>
+                <span class="sh-arrow" aria-hidden="true">↗</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <Footer />
+</Landing>
+
+<style>
+  .skip-link { position:absolute; left:16px; top:8px; z-index:100; padding:8px 12px; background:var(--ink); color:var(--bg); transform:translateY(-150%); }.skip-link:focus { transform:translateY(0); }
+  .hero { display:grid; grid-template-columns:minmax(0,1fr) minmax(300px,.6fr); gap:clamp(40px,8vw,110px); align-items:start; padding-block:clamp(76px,11vw,140px); }.hero-copy { max-width:680px; }h1 { font-size:clamp(3.2rem,7vw,6.7rem); letter-spacing:-.065em; line-height:.96; max-width:9ch; }.lede { font-size:clamp(1.12rem,1.8vw,1.35rem); line-height:1.5; max-width:58ch; margin:28px 0 26px; }.actions { display:flex; flex-wrap:wrap; gap:12px; }.button { display:inline-flex; align-items:center; gap:8px; border:1px solid var(--ink); padding:12px 17px; font-weight:600; font-size:.95rem; }.button.primary { background:var(--ink); color:var(--bg); }.button.secondary { background:transparent; }.button:hover { transform:translateY(-1px); }.button:focus-visible,.start-here a:focus-visible { outline:3px solid #d25600; outline-offset:4px; }
+  /* ── Start here: dark space panel ── */
+  .start-here { position:relative; background:var(--grad-space); border-radius:var(--radius-lg); padding:30px 30px 12px; overflow:hidden; box-shadow:var(--shadow-purple-mid); }
+  .start-here .starfield { z-index:0; opacity:.65; }
+  .sh-glow { width:240px; height:240px; right:-60px; bottom:-80px; }
+  .sh-inner { position:relative; z-index:2; }
+  .start-here h2 { color:#fff; font-size:1.3rem; margin:0 0 8px; }
+  .sh-list a { display:grid; grid-template-columns:auto 1fr auto; align-items:baseline; gap:18px; padding:16px 0; border-top:1px solid rgba(255,255,255,.12); color:#fff; font-size:1.15rem; }
+  .sh-list a:first-of-type { border-top:none; }
+  .sh-num { font-family:var(--font-mono); font-size:.9rem; font-variant-numeric:tabular-nums; color:var(--blue-medium); }
+  .sh-arrow { font-family:var(--font-mono); font-size:1rem; color:var(--blue-light); transition:transform .18s cubic-bezier(.22,1,.36,1); }
+  .sh-list a:hover { color:var(--blue-light); }
+  .sh-list a:hover .sh-arrow { transform:translate(2px,-2px); }
+  @media (max-width:800px) { .hero { grid-template-columns:1fr; } }
+  @media (max-width:520px) { h1 { font-size:3.25rem; } }
+  @media (prefers-reduced-motion:reduce) { *,*::before,*::after { scroll-behavior:auto !important; transition-duration:.01ms !important; animation-duration:.01ms !important; } }
+</style>

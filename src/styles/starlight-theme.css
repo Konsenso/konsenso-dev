@@ -1,0 +1,131 @@
+/* konsenso.dev — "calm docs" theme.
+   Maps the Konsenso Labs design tokens onto Starlight's --sl-* variables.
+   Loud motifs (glows, dot canvas, mesh, space-dark) live ONLY on the
+   landing page (src/pages/index.astro). Inside docs we keep the reading
+   column quiet: Labs colour + type, restrained everything else. */
+
+:root {
+  /* Type — Labs typography */
+  --sl-font: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
+  --sl-font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular,
+    Menlo, monospace;
+
+  /* Konsenso Labs palette, carried in as author-facing helpers */
+  --k-blue: #0254ec;
+  --k-blue-2: #2b5ae1;
+  --k-blue-medium: #6195ff;
+  --k-blue-light: #b8d3ff;
+  --k-ink: #131210;
+  --k-body: #45433d;
+  --k-muted: #7d7a72;
+  --k-marigold: #ffc300;
+  --k-green: #004239;
+  --k-green-bright: #009f60;
+  --k-magenta: #cc1757;
+  --k-space: #01011e;
+  --k-grad-spectrum: linear-gradient(
+    90deg,
+    #8c33e4,
+    #ff00ff 26%,
+    #f3552e 52%,
+    #ff8904 88%
+  );
+}
+
+/* ── Dark theme (Starlight default) ── */
+:root {
+  --sl-color-accent-low: #10265c;
+  --sl-color-accent: #2b6cff;
+  --sl-color-accent-high: #b8d3ff;
+
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #ecebe9;
+  --sl-color-gray-2: #c2c0ba;
+  --sl-color-gray-3: #8f8d86;
+  --sl-color-gray-4: #57554f;
+  --sl-color-gray-5: #38362f;
+  --sl-color-gray-6: #26241f;
+  --sl-color-black: #16150f;
+
+  --sl-color-bg: #0d0c1f;
+  --sl-color-bg-nav: rgba(13, 12, 31, 0.85);
+  --sl-color-bg-sidebar: #0b0a19;
+  --sl-color-hairline-shade: rgba(184, 211, 255, 0.12);
+}
+
+/* ── Light theme ── */
+:root[data-theme="light"] {
+  --sl-color-accent-low: #d9e6ff;
+  --sl-color-accent: #0254ec;
+  --sl-color-accent-high: #01337a;
+
+  --sl-color-white: #131210;
+  --sl-color-gray-1: #2a2925;
+  --sl-color-gray-2: #45433d;
+  --sl-color-gray-3: #7d7a72;
+  --sl-color-gray-4: #a8a49a;
+  --sl-color-gray-5: #d6d2c6;
+  --sl-color-gray-6: #ece9e0;
+  --sl-color-gray-7: #f4f2ec;
+  --sl-color-black: #f9f8f3;
+
+  --sl-color-bg: #f9f8f3;
+  --sl-color-bg-nav: rgba(249, 248, 243, 0.82);
+  --sl-color-bg-sidebar: #f4f2ec;
+  --sl-color-hairline-shade: #e4e1d7;
+}
+
+/* ── Display type: headings use Space Grotesk, tightened like Labs ── */
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6),
+.content-panel h1,
+h1#_top,
+.hero h1,
+site-title,
+.site-title {
+  font-family: "Space Grotesk Variable", var(--sl-font);
+  letter-spacing: -0.03em;
+}
+
+/* Site title in the header */
+a.site-title {
+  font-family: "Space Grotesk Variable", var(--sl-font);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+/* ── Links inside docs get the Labs blue underline treatment ── */
+.sl-markdown-content a {
+  color: var(--sl-color-accent);
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in srgb, var(--sl-color-accent) 45%, transparent);
+}
+.sl-markdown-content a:hover {
+  text-decoration-color: var(--sl-color-accent);
+}
+
+/* ── Code blocks: quiet, rounded, mono ── */
+.sl-markdown-content :not(pre) > code {
+  font-family: var(--sl-font-mono);
+  font-size: 0.88em;
+}
+.expressive-code .frame pre,
+.sl-markdown-content pre {
+  border-radius: 12px;
+}
+
+/* ── A single spectrum accent rule so docs still feel "Konsenso" ── */
+.sl-markdown-content hr {
+  border: 0;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--k-grad-spectrum);
+  opacity: 0.9;
+}
+
+/* Inline "spectrum text" utility usable in MDX */
+.spectrum-text {
+  background: var(--k-grad-spectrum);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}

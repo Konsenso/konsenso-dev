@@ -1,0 +1,220 @@
+---
+// Standalone shell for the loud konsenso.dev landing page.
+// Deliberately NOT a Starlight page: the landing owns the full Konsenso Labs
+// aesthetic (space-dark hero, glows, dot canvas, mesh). Docs pages use the
+// calm Starlight theme instead. Fonts are self-hosted via @fontsource.
+import "@fontsource-variable/space-grotesk";
+import "@fontsource-variable/dm-sans";
+import "@fontsource-variable/jetbrains-mono";
+
+export interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = "konsenso.dev — stress-test AI before you ship it",
+  description = "A developer resource for learning how to stress-test AI systems before deployment: red teaming, evals, and inspectable evidence.",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <!-- Unindexed until launch: drop this and the netlify X-Robots-Tag header at go-live. -->
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    /* ── Surfaces ── */
+    --bg: #f9f8f3;
+    --bg-alt: #f1efee;
+    --surface: #ffffff;
+    --border: #e4e1d7;
+    --border-strong: #d6d2c6;
+
+    /* ── Ink ── */
+    --ink: #131210;
+    --body: #45433d;
+    --muted: #6a6760; /* WCAG AA: 4.9:1 on --bg-alt, 5.3:1 on --bg */
+
+    /* ── Tech accents ── */
+    --blue: #0254ec;
+    --blue-2: #2b5ae1;
+    --blue-medium: #6195ff;
+    --blue-light: #b8d3ff;
+    --pink-hot: #fc80ff;
+    --navy: #01123f;
+
+    /* ── Playful accents ── */
+    --marigold: #ffc300;
+    --orange: #f46600;
+    --pink: #ffc8e5;
+    --magenta: #cc1757;
+    --green: #004239;
+    --green-bright: #009f60;
+    --mint: #7adf9c;
+
+    /* ── Deep-security ── */
+    --space: #01011e;
+    --midnight: #030328;
+    --dark-purple: #441c99;
+    --bubblegum: #ff78e1;
+    --brand-purple: #8d1ff4;
+    --electric-blue: #145deb;
+    --lavender: #c481f3;
+    --grad-spectrum: linear-gradient(90deg, #8c33e4, #ff00ff 26%, #f3552e 52%, #ff8904 88%);
+    --grad-space: radial-gradient(113% 70% at 73% 11%, #070738 0%, #031573 50%, #01011e 100%);
+    --shadow-purple-mid: 0 0.625rem 0.938rem rgba(68, 28, 153, 0.3);
+
+    /* ── Type ── */
+    --font-display: "Space Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
+    --font-sans: "DM Sans Variable", ui-sans-serif, system-ui, sans-serif;
+    --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+    /* ── Shape ── */
+    --radius-card: 14px;
+    --radius-lg: 24px;
+    --radius-pill: 999px;
+    --container: 1120px;
+    --shadow-sm: 0 1px 2px rgba(19, 18, 16, 0.06);
+    --shadow-card: 0 2px 4px rgba(19, 18, 16, 0.05), 0 12px 32px -12px rgba(19, 18, 16, 0.12);
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--body);
+    font-family: var(--font-sans);
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
+    margin: 0;
+  }
+  a { color: inherit; text-decoration: none; }
+  img, svg, canvas { display: block; max-width: 100%; }
+
+  /* ── Grid mesh + dot grid ── */
+  .mesh {
+    background-image:
+      linear-gradient(to right, rgba(184, 211, 255, 0.45) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(184, 211, 255, 0.45) 1px, transparent 1px);
+    background-size: 46px 46px;
+  }
+
+  /* ── Glows ── */
+  .glow {
+    position: absolute;
+    border-radius: 999px;
+    filter: blur(60px);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .glow-blue { background: radial-gradient(circle, rgba(2, 83, 237, 0.42) 0%, rgba(2, 83, 237, 0.09) 42%, transparent 70%); }
+  .glow-purple { background: radial-gradient(circle, rgba(141, 31, 244, 0.5) 0%, transparent 64%); }
+  .glow-bubblegum { background: radial-gradient(circle, rgba(255, 120, 225, 0.5) 0%, transparent 62%); }
+
+  /* ── Space bg, starfield, spectrum ── */
+  .space-bg { background: var(--space); }
+  .space-bg::before {
+    content: ""; position: absolute; inset: 0; z-index: 0;
+    background: var(--grad-space); pointer-events: none;
+  }
+  .starfield {
+    position: absolute; inset: 0; z-index: 0; pointer-events: none;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.16) 1px, transparent 1.4px);
+    background-size: 24px 24px;
+    -webkit-mask-image: linear-gradient(180deg, transparent, #000 22%, #000 78%, transparent);
+    mask-image: linear-gradient(180deg, transparent, #000 22%, #000 78%, transparent);
+  }
+  .spectrum-text {
+    background: var(--grad-spectrum);
+    -webkit-background-clip: text; background-clip: text;
+    color: transparent;
+  }
+  .spectrum-bar {
+    height: 4px; width: 100%; border-radius: 999px;
+    background: var(--grad-spectrum);
+  }
+
+  /* ── Layout helpers ── */
+  .container {
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: 24px;
+  }
+
+  /* ── Buttons ── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 1rem;
+    line-height: 1;
+    padding: 14px 24px;
+    border-radius: var(--radius-pill);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+    white-space: nowrap;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary {
+    background: var(--blue);
+    color: #fff;
+    box-shadow: 0 6px 18px -6px rgba(2, 84, 236, 0.6);
+  }
+  .btn-primary:hover { background: var(--blue-2); box-shadow: 0 10px 26px -8px rgba(2, 84, 236, 0.7); }
+  .btn-ghost {
+    background: var(--surface);
+    color: var(--ink);
+    border-color: var(--border-strong);
+  }
+  .btn-ghost:hover { background: var(--bg-alt); }
+  .btn-white {
+    background: #fff;
+    color: #000;
+    font-weight: 600;
+    box-shadow: var(--shadow-purple-mid);
+  }
+  .btn-white:hover { background: #f2f1f4; box-shadow: 0 12px 30px -8px rgba(255, 120, 225, 0.35); }
+  .btn-ghost-dark {
+    background: rgba(255, 255, 255, 0.07);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+  .btn-ghost-dark:hover { background: rgba(255, 255, 255, 0.12); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
+</style>
