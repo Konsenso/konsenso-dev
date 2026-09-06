@@ -6,8 +6,8 @@ import Footer from "../components/Footer.astro";
 const steps = [
   { n: "01", label: "What is AI safety", href: "/start-here/" },
   { n: "02", label: "What is AI security", href: "/start-here/" },
-  { n: "03", label: "What is AI red teaming", blurb: "Break it to find the failures", href: "/start-here/" },
-  { n: "04", label: "What are AI evals", blurb: "Measure and track those failures", href: "/start-here/" },
+  { n: "03", label: "What is AI red teaming", href: "/start-here/" },
+  { n: "04", label: "What are AI evals", href: "/start-here/" },
 ];
 ---
 
@@ -50,12 +50,12 @@ const steps = [
   .skip-link { position:absolute; left:16px; top:8px; z-index:100; padding:8px 12px; background:var(--ink); color:var(--bg); transform:translateY(-150%); }.skip-link:focus { transform:translateY(0); }
   .hero { display:grid; grid-template-columns:minmax(0,1fr) minmax(300px,.6fr); gap:clamp(40px,8vw,110px); align-items:start; padding-block:clamp(76px,11vw,140px); }.hero-copy { max-width:680px; }h1 { font-size:clamp(3.2rem,7vw,6.7rem); letter-spacing:-.065em; line-height:.96; max-width:9ch; }.lede { font-size:clamp(1.12rem,1.8vw,1.35rem); line-height:1.5; max-width:58ch; margin:28px 0 26px; }.actions { display:flex; flex-wrap:wrap; gap:12px; }.button { display:inline-flex; align-items:center; gap:8px; border:1px solid var(--ink); padding:12px 17px; font-weight:600; font-size:.95rem; }.button.primary { background:var(--ink); color:var(--bg); }.button.secondary { background:transparent; }.button:hover { transform:translateY(-1px); }.button:focus-visible,.start-here a:focus-visible { outline:3px solid #d25600; outline-offset:4px; }
   /* ── Start here: dark space panel ── */
-  .start-here { position:relative; background:var(--grad-space); border-radius:var(--radius-lg); padding:30px 30px 12px; overflow:hidden; box-shadow:var(--shadow-purple-mid); }
+  .start-here { position:relative; background:var(--grad-space); border-radius:var(--radius-lg); padding:28px 30px; overflow:hidden; box-shadow:var(--shadow-purple-mid); }
   .start-here .starfield { z-index:0; opacity:.65; }
   .sh-glow { width:240px; height:240px; right:-60px; bottom:-80px; }
   .sh-inner { position:relative; z-index:2; }
-  .start-here h2 { color:#fff; font-size:1.3rem; margin:0 0 8px; }
-  .sh-list a { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:18px; min-height:74px; padding:8px 0; border-top:1px solid rgba(255,255,255,.12); color:#fff; font-size:1.2rem; }
+  .start-here h2 { color:#fff; font-size:1.3rem; margin:0 0 10px; }
+  .sh-list a { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:18px; padding:18px 0; border-top:1px solid rgba(255,255,255,.12); color:#fff; font-size:1.2rem; }
   .sh-list a:first-of-type { border-top:none; }
   .sh-text { display:flex; flex-direction:column; gap:4px; }
   .sh-blurb { font-size:.9rem; line-height:1.35; color:rgba(255,255,255,.72); }
