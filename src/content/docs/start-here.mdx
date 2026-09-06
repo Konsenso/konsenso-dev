@@ -1,147 +1,48 @@
 ---
-title: AI safety and security
-description: A developer's introduction to stress-testing AI systems before deployment — what goes wrong, how safety differs from security, and how to produce evidence you can defend.
+title: Testing AI before you ship it
+description: "A developer's introduction to stress-testing AI systems before deployment, starting with the two core practices: red teaming and evals."
 ---
-
-import { Card, CardGrid, Aside } from '@astrojs/starlight/components';
 
 You've shipped software before. AI features break the habits you built doing
 it: the same input can produce a different output twice, the behaviour lives in
 weights you can't read, and a determined user can *talk* the system into doing
 things no one wrote code for. Testing an AI feature before you deploy it is a
-different discipline from testing ordinary software — this page is the
-introduction to that discipline.
+different discipline from testing ordinary software, and this page is the
+introduction to it.
 
 It's written for the person who's been handed an AI feature and a launch date:
 developers, platform teams, and security engineers who need to know whether the
 thing is safe to ship, and be able to show *why*.
 
-## Two words, two questions
+Two practices do most of the work, and mature teams do both. Red teaming finds
+the problems. Evals tell you whether they're getting better or worse.
 
-"Safety" and "security" get used interchangeably, but they answer different
-questions — and a system can pass one while failing the other.
+## What is AI red teaming
 
-<CardGrid>
-  <Card title="Security" icon="warning">
-    **Can an adversary make it misbehave?** Someone is deliberately crafting
-    input to bend the system to their goals — leaking its instructions,
-    exfiltrating data, or abusing a tool it can call. Threat-model driven.
-  </Card>
-  <Card title="Safety" icon="heart">
-    **Does it cause harm on its own?** No attacker required — the system
-    produces dangerous, false, or biased output, mishandles a sensitive
-    request, or refuses the wrong things. Behaviour-driven.
-  </Card>
-</CardGrid>
+Red teaming is open-ended and adversarial. You, or a tool acting for you,
+actively try to break the system: generating and mutating attacks to find the
+failure you didn't know to look for. It's an attacker's mindset applied on
+purpose, before a real attacker gets there.
 
-The line blurs in practice. A *jailbreak* is a security exploit (an adversary
-bypassing a guardrail) whose payoff is a safety failure (the harmful content
-that guardrail existed to stop). You need to test for both, because fixing one
-doesn't fix the other.
+In practice that means things like prompt injection (untrusted text hijacking
+your instructions), jailbreaks (coaxing the model past its own refusals), and
+getting it to leak data or the system prompt it was supposed to protect.
 
-## What actually goes wrong
+Red teaming is good at surfacing unknown unknowns. What it can't give you is a
+single number, because it's exploratory by nature. That's the job of the second
+practice.
 
-Most real-world LLM failures fall into a handful of families. These map onto the
-[OWASP LLM Top 10](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
-— the shared vocabulary your security and compliance teams will expect.
+## What are AI evals
 
-<CardGrid>
-  <Card title="Prompt injection">
-    Untrusted text — from the user or from a document, web page, or tool
-    output the model reads — overrides your instructions and hijacks its
-    behaviour.
-  </Card>
-  <Card title="System-prompt leakage">
-    The model discloses the hidden instructions, rules, or context it was
-    given — often the first step in defeating the rest of its guardrails.
-  </Card>
-  <Card title="Sensitive data disclosure">
-    Training data, other users' data, secrets, or PII come back out in a
-    response.
-  </Card>
-  <Card title="Harmful content / jailbreaks">
-    Wrapping, role-play, or obfuscation coaxes the model past its refusals into
-    producing content it's supposed to decline.
-  </Card>
-  <Card title="Excessive agency">
-    A model wired to tools, code execution, or APIs takes an action it
-    shouldn't — because an attacker, or its own mistake, told it to.
-  </Card>
-  <Card title="Over-refusal">
-    The opposite failure: the system refuses safe, legitimate requests ("how do
-    I kill a process?") and becomes useless. Safety you can't ship isn't safety.
-  </Card>
-</CardGrid>
+An eval is fixed and repeatable. You run a defined set of prompts and measure
+the result: an attack-success rate, an accuracy, a refusal rate. Because the set
+is fixed, you can run it again on every change and watch the number move.
 
-## Two ways to test
+That makes evals the thing you gate a release on. Run them in CI, set a
+threshold, and a regression fails the build the same way a broken unit test
+would.
 
-There are two complementary practices, and mature teams do both.
-
-<CardGrid>
-  <Card title="Red teaming" icon="rocket">
-    Open-ended and adversarial. You (or a tool) actively *try to break* the
-    system — generating and mutating attacks to find the failure you didn't
-    know to look for. Great at surfacing unknown unknowns; hard to put a single
-    number on.
-  </Card>
-  <Card title="Evaluations" icon="bars">
-    Fixed and repeatable. You run a defined set of prompts and *measure* the
-    result — an attack-success rate, an accuracy, a refusal rate — so you can
-    track it release over release and gate a pipeline on it. Great at catching
-    regressions; only tests what's in the set.
-  </Card>
-</CardGrid>
-
-Red teaming tells you *what can go wrong*. Evals tell you *whether it's getting
-better or worse*. One without the other leaves a blind spot.
-
-## Testing only counts if it produces evidence
-
-A test you can't reproduce or show someone is a vibe, not an assurance. The loop
-that turns testing into evidence has three parts:
-
-1. **Test** — exercise the system with adversarial prompts, repeatably.
-2. **Judge** — grade each response. Clear-cut cases (a leaked secret, a returned
-   PII string) can be checked deterministically; nuanced ones need a judge —
-   and the judge must never be the same model you're testing.
-3. **Record** — keep a durable, replayable record of every finding, mapped to
-   the frameworks people ask about, so "we tested it" is something you can
-   actually put in front of a reviewer.
-
-<Aside type="caution" title="Be honest about what a test proves">
-  A passing test is evidence a specific attack didn't land under specific
-  conditions — not proof the system is "safe," and not a compliance
-  attestation. Good testing states its own limits: what it exercised, how it was
-  judged, and what it couldn't reach. Overclaiming is its own risk.
-</Aside>
-
-## See the loop in ten seconds
-
-The fastest way to understand test → judge → record is to run it. The
-[`konsenso` CLI](https://github.com/Konsenso/konsenso-dev) scans a deliberately
-vulnerable bot on your own machine — no endpoint, no API key, no setup — and
-prints real findings, each with a permanent id and a hash:
-
-```bash
-konsenso demo
-```
-
-## Where to go next
-
-This introduction is the map. The rest of the site fills it in:
-
-<CardGrid>
-  <Card title="Runbooks">
-    Step-by-step, runnable guides that end in a real result — your first red
-    team, wiring an adversarial scan into CI, baselining against published
-    safety sets. *(In progress.)*
-  </Card>
-  <Card title="Concepts">
-    Plain explanations of the ideas above: red teams vs. evals, what a judge is
-    and why independence matters, what "robust" honestly means. *(In progress.)*
-  </Card>
-  <Card title="Reference">
-    The look-up layer — glossary, scoring scales, and crosswalks to OWASP LLM
-    Top 10, MITRE ATLAS, and NIST. *(In progress.)*
-  </Card>
-</CardGrid>
+The tradeoff is that an eval only tests what's in the set, so it won't find a
+new failure on its own. That's why the two go together: red teaming finds what
+to worry about, and an eval turns it into something you can track release over
+release.

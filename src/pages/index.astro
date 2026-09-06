@@ -4,10 +4,8 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 
 const steps = [
-  { n: "01", label: "Safety vs security", href: "/start-here/#two-words-two-questions" },
-  { n: "02", label: "What goes wrong", href: "/start-here/#what-actually-goes-wrong" },
-  { n: "03", label: "Red teams vs evals", href: "/start-here/#two-ways-to-test" },
-  { n: "04", label: "Turn tests into evidence", href: "/start-here/#testing-only-counts-if-it-produces-evidence" },
+  { n: "01", label: "What is AI red teaming", blurb: "Break it on purpose to find the failures", href: "/start-here/#what-is-ai-red-teaming" },
+  { n: "02", label: "What are AI evals", blurb: "Measure the failures and track them over time", href: "/start-here/#what-are-ai-evals" },
 ];
 ---
 
@@ -30,7 +28,10 @@ const steps = [
             {steps.map((s) => (
               <a href={s.href}>
                 <span class="sh-num">{s.n}</span>
-                <span class="sh-label">{s.label}</span>
+                <span class="sh-text">
+                  <span class="sh-label">{s.label}</span>
+                  <span class="sh-blurb">{s.blurb}</span>
+                </span>
                 <span class="sh-arrow" aria-hidden="true">↗</span>
               </a>
             ))}
@@ -52,9 +53,11 @@ const steps = [
   .sh-glow { width:240px; height:240px; right:-60px; bottom:-80px; }
   .sh-inner { position:relative; z-index:2; }
   .start-here h2 { color:#fff; font-size:1.3rem; margin:0 0 8px; }
-  .sh-list a { display:grid; grid-template-columns:auto 1fr auto; align-items:baseline; gap:18px; padding:16px 0; border-top:1px solid rgba(255,255,255,.12); color:#fff; font-size:1.15rem; }
+  .sh-list a { display:grid; grid-template-columns:auto 1fr auto; align-items:start; gap:18px; padding:22px 0; border-top:1px solid rgba(255,255,255,.12); color:#fff; font-size:1.2rem; }
   .sh-list a:first-of-type { border-top:none; }
-  .sh-num { font-family:var(--font-mono); font-size:.9rem; font-variant-numeric:tabular-nums; color:var(--blue-medium); }
+  .sh-text { display:flex; flex-direction:column; gap:5px; }
+  .sh-blurb { font-size:.9rem; line-height:1.35; color:rgba(255,255,255,.72); }
+  .sh-num { font-family:var(--font-mono); font-size:.9rem; font-variant-numeric:tabular-nums; color:var(--blue-medium); line-height:1.6; }
   .sh-arrow { font-family:var(--font-mono); font-size:1rem; color:var(--blue-light); transition:transform .18s cubic-bezier(.22,1,.36,1); }
   .sh-list a:hover { color:var(--blue-light); }
   .sh-list a:hover .sh-arrow { transform:translate(2px,-2px); }
