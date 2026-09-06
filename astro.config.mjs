@@ -42,7 +42,10 @@ export default defineConfig({
       sidebar: [
         {
           label: "Start here",
-          items: [{ label: "Introduction", slug: "start-here" }],
+          items: [
+            { label: "Introduction", slug: "start-here" },
+            { label: "Resources", slug: "resources" },
+          ],
         },
       ],
     }),

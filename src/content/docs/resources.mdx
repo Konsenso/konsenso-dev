@@ -1,0 +1,106 @@
+---
+title: Resources
+description: "A list of tools, courses, and other information for testing AI systems before shipping them."
+---
+
+A hand-picked list of tools, courses, and other information that can help you test AI systems before you ship them.
+
+## Tools
+
+### Evaluation
+
+- **[promptfoo](https://github.com/promptfoo/promptfoo)**.
+  promptfoo is a CLI and library for evaluating and red-teaming LLM apps. Now part of OpenAI, promptfoo is used to automate tests and evaluations, automate CI/CD checks and many other features.  
+- **[DeepEval](https://github.com/confident-ai/deepeval)**. Open-source eval
+  framework structured like Pytest, with metrics such as G-Eval, answer relevancy,
+  and hallucination detection.
+- **[Ragas](https://github.com/explodinggradients/ragas)**. Evaluation toolkit with
+  synthetic test-set generation. 
+- **[Inspect](https://github.com/UKGovernmentBEIS/inspect_ai)**. Rigorous eval
+  framework from the UK AI Security Institute, with tool use, multi-turn, and
+  model-graded evals and prebuilt evals. 
+- **[OpenAI Evals](https://github.com/openai/evals)**. Framework and open registry of
+  benchmarks for LLMs and LLM systems, with support for custom evals. Low-friction way
+  to reuse existing benchmarks or make your own.
+- **[Langfuse](https://github.com/langfuse/langfuse)**. Self-hostable LLM engineering
+  platform (tracing, prompt management, datasets) with LLM-as-a-judge and human
+  labeling. Useful when you need an audit trail alongside scores.
+- **[LangSmith](https://docs.langchain.com/langsmith/evaluation-concepts)**. LangChain's
+  evaluation surface, with reference-free and reference-based LLM-judge evaluators. The
+  default if you are already on LangChain or LangGraph.
+- **[TruLens](https://github.com/truera/trulens)**. Tracing plus LLM-judge scoring that
+  ties evals to observability, so you can see which step regressed, not just that
+  quality dropped.
+- **[Giskard](https://github.com/Giskard-AI/giskard)**. One
+  library with regression checks and an automated scan for prompt injection, harmful
+  content, and misinformation. Good for small teams wanting both without two toolchains.
+
+### Red teaming and guardrails
+
+- **[promptfoo](https://github.com/promptfoo/promptfoo)**.
+  Generates and runs adversarial scans for prompt injection, jailbreaks, and PII
+  leakage, mapped to frameworks like OWASP, from the same CLI you use for evals.
+- **[PyRIT](https://github.com/Azure/PyRIT)**. Microsoft's open Python Risk
+  Identification Tool for finding risks in generative AI through adversarial testing.
+  Battle-tested by Microsoft's AI Red Team; the standard framework for repeatable red
+  teaming.
+- **[garak](https://github.com/NVIDIA/garak)**. NVIDIA's vulnerability scanner that
+  probes for prompt injection, jailbreaks, and data leakage. Think "nmap for LLMs": a
+  fast broad battery of known attacks before launch.
+- **[Giskard](https://github.com/Giskard-AI/giskard)**. One
+  library with regression checks and an automated scan for prompt injection, harmful
+  content, and misinformation. Good for small teams wanting both without two toolchains.
+- **[Guardrails](https://github.com/guardrails-ai/guardrails)**. Runs input and output
+  guards to enforce contracts on model I/O using composable validators. A control worth
+  red-teaming against.
+
+## Courses
+
+- **[AI Evals for Engineers and PMs](https://maven.com/parlance-labs/evals)**. Hamel
+  Husain and Shreya Shankar. Instrumenting agents, error analysis, building AI-judge and
+  code-based evals, CI/CD, and safety red teaming. The definitive applied evals course
+  for this exact audience.
+- **[Evaluating AI Agents](https://www.deeplearning.ai/courses/evaluating-ai-agents)**.
+  DeepLearning.AI with Arize AI. Add observability to an agent and evaluate it
+  component-by-component with code, LLM-as-judge, and human annotation. A short hands-on
+  intro to agent evals.
+- **[Building and Evaluating Data Agents](https://www.deeplearning.ai/short-courses/building-and-evaluating-data-agents/)**.
+  DeepLearning.AI with Snowflake. Build, trace, and evaluate a multi-agent data workflow
+  in LangGraph. Practical eval-in-context for RAG and data agents.
+- **[Red Teaming LLM Applications](https://www.deeplearning.ai/short-courses/red-teaming-llm-applications/)**.
+  DeepLearning.AI with Giskard. Find app vulnerabilities including prompt injection using
+  Giskard's tooling. A short on-ramp to red teaming for engineers with basic Python.
+
+## Reading
+
+- **[Your AI Product Needs Evals](https://hamel.dev/blog/posts/evals/)**. Hamel Husain.
+  The three-level eval framework (unit tests, human and model eval, A/B) argued through a
+  real case study. The canonical "start here" essay.
+- **[Using LLM-as-a-Judge for Evaluation](https://hamel.dev/blog/posts/llm-judge/)**. Hamel
+  Husain. A seven-step "critique shadowing" method for building an LLM judge with a domain
+  expert. Concrete method for the technique teams most often get wrong.
+- **[Data Flywheels for LLM Applications](https://www.sh-reya.com/blog/ai-engineering-flywheel/)**.
+  Shreya Shankar. Evaluation, monitoring, and continual improvement as a self-reinforcing
+  loop, with a case for binary metrics and error analysis.
+- **[Evaluating the Effectiveness of LLM-Evaluators](https://eugeneyan.com/writing/llm-evaluators/)**.
+  Eugene Yan. A survey of LLM-evaluator methods and their biases, and a sober look at when
+  LLM judges are trustworthy and when they are not.
+- **[Prompt injection: what's the worst that can happen?](https://simonwillison.net/2023/Apr/14/worst-that-can-happen/)**.
+  Simon Willison. Why prompt injection matters, why tool access makes it dangerous, and why
+  there is no fully reliable fix. The clearest primer on the attack every team must design
+  around.
+- **[OWASP Top 10 for LLM Applications](https://owasp.org/www-project-top-10-for-large-language-model-applications/)**.
+  OWASP GenAI Security Project. The community list of top LLM-app risks. The shared
+  vocabulary and checklist for scoping what to red-team.
+- **[Announcing PyRIT](https://www.microsoft.com/en-us/security/blog/2024/02/22/announcing-microsofts-open-automation-framework-to-red-team-generative-ai-systems/)**.
+  Microsoft AI Red Team. The PyRIT launch, its rationale, and its five core components.
+  Primary source from the team that built it.
+- **[3 Takeaways from Red Teaming 100 Generative AI Products](https://www.microsoft.com/en-us/security/blog/2025/01/13/3-takeaways-from-red-teaming-100-generative-ai-products/)**.
+  Blake Bullwinkel and Ram Shankar Siva Kumar, Microsoft. Lessons across 100+ products:
+  AI amplifies existing risks, humans stay essential, security is continuous.
+- **[Taxonomy of Failure Modes in AI Agents](https://www.microsoft.com/en-us/security/blog/2025/04/24/new-whitepaper-outlines-the-taxonomy-of-failure-modes-in-ai-agents/)**.
+  Ram Shankar Siva Kumar, Microsoft AI Red Team. A safety and security failure taxonomy for
+  agents, with memory poisoning flagged as high-risk.
+- **[PyRIT: A Framework for Security Risk Identification and Red Teaming](https://arxiv.org/abs/2410.02828)**.
+  Lopez Munoz, Minnich, Lutz, Lundeen, Dheekonda, et al. (Microsoft). The PyRIT paper: the
+  challenges of generative-AI red teaming and the framework's architecture.
