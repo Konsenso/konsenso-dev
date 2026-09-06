@@ -1,71 +1,41 @@
 ---
-title: Testing AI before you ship it
-description: "A developer's introduction to stress-testing AI systems before deployment, starting with the two core practices: red teaming and evals."
+title: Learn to test, break, and fix AI (in plain language)
+description: "A practical guide for PMs, engineers and security teams to get started with AI safety and security, through red teaming and evals."
 ---
 
-You've shipped software before. AI features break the habits you built doing
-it: the same input can produce a different output twice, the behaviour lives in
-weights you can't read, and a determined user can *talk* the system into doing
-things no one wrote code for. Testing an AI feature before you deploy it is a
-different discipline from testing ordinary software, and this page is the
-introduction to it.
+If you are someone who ships software, you need to learn about AI safety and security.
 
-It's written for the person who's been handed an AI feature and a launch date:
-developers, platform teams, and security engineers who need to know whether the
-thing is safe to ship, and be able to show *why*.
+**The problem**: AI safety and security seem like abstract or academic concepts. 
 
-Two words come up constantly, and they get used interchangeably even though
-they answer different questions: safety and security. A system can pass one and
-fail the other, so it helps to keep them apart.
+The many different definitions and applications of the terms "AI safety" and "AI security" don't help: 
 
-## What is AI safety
+- [AI safety](https://en.wikipedia.org/wiki/AI_safety) is "an interdisciplinary field focused on preventing accidents, misuse, or other harmful consequences arising from artificial intelligence systems. It encompasses AI alignment (which aims to ensure AI systems behave as intended), monitoring AI systems for risks, and enhancing their robustness. The field is particularly concerned with existential risks posed by advanced AI models".
 
-Safety asks a plain question: does the system cause harm on its own? No attacker
-required. A model that is safe to ship can still produce dangerous, false, or
-biased output, mishandle a sensitive request, or refuse things it should
-answer. Safety problems are about behaviour, so you find them by looking at what
-the system does across normal and edge-case use, not only when someone is
-attacking it.
+  - Broadly speaking, AI safety is about preventing harms. 
+  - There are many different stakeholders in "AI safety", who have different focus on what "harms" mean, what the most immediate risks of AI are, and what practices we should carry out to improve "AI safety"
+  - PMs, engineers and security teams are likely most interested in the form of "AI safety" that [Konsenso](https://konsenso.dev) focuses on: product-level testing and evaluation of AI deployed by enterprises
+  - A major part of the "AI safety" field is interested in 'existential risk' from questions like, 'can AI build biological weapons?' 
+  - When we talk about "AI safety" here, we mean the product-level safety practices
+- If you are a government or a cybersecurity vendor, AI security means different things. 
 
-## What is AI security
+  - Governments concerned about AI-related risks to their nations have invested in AI Security institutes like the [UK AISI](https://www.aisi.gov.uk/) and many others. These organizations primarily conduct technical research and evaluations of AI frontier models. 
+  - Cybersecurity and infrastructure vendors see AI security as an extension of existing cybersecurity practices. This can be offensive (let's run AI red teams to find vulnerabilities), or defensive (let's prevent malicious attacks from AI, or with AI-assisted tooling).
 
-Security asks a different question: can someone make it misbehave on purpose?
-Here there is an attacker, deliberately crafting input to bend the system to
-their goals: leaking its instructions, pulling out data it holds, or abusing a
-tool it can call. Security problems are about threats, so you find them by
-thinking like the attacker and working through what they would try.
+## Who is this for?
 
-The line between the two blurs in practice. A jailbreak is a security problem,
-an attacker slipping past a guardrail, whose payoff is a safety problem, the
-harmful output that guardrail was there to stop. You test for both, and two
-practices do most of that work. Mature teams use both.
+All the content on [Konsenso](https://konsenso.dev) is for the product manager, engineer or security team member who wants to understand the current state and best practices of AI safety and security. 
 
-## What is AI red teaming
+While there is plenty of high-level academic research in the AI, machine learning and natural language processing spaces, it is more challenging to find practical explanations of what any of this means for your jobs as a PM, engineer or security team member.
 
-Red teaming is open-ended and adversarial. You, or a tool acting for you,
-actively try to break the system: generating and mutating attacks to find the
-failure you didn't know to look for. It's an attacker's mindset applied on
-purpose, before a real attacker gets there.
+We wrote this guide to help point other PMs, engineers and security team members to concepts, applications and best practices that we spent years learning on the job. We've run AI red teams, designed evals, and published original research for major U.S. and global organizations, including the Department of Defense, Fortune 500 companies, and many governments around the world.
 
-In practice that means things like prompt injection (untrusted text hijacking
-your instructions), jailbreaks (coaxing the model past its own refusals), and
-getting it to leak data or the system prompt it was supposed to protect.
+## AI Safety and Security Today
 
-Red teaming is good at surfacing unknown unknowns. What it can't give you is a
-single number, because it's exploratory by nature. That's the job of the second
-practice.
+In July 2026, Nvidia and other industry leaders [formed the Open Secure Alliance for AI Safety and Security](https://blogs.nvidia.com/blog/open-secure-ai-alliance/). 
 
-## What are AI evals
+Many enterprises still have separate AI safety and AI security teams. However, as we learn more about how safety and security overlaps, we may see more industry and academic acceptance of AI safety and security as the same discipline.
 
-An eval is fixed and repeatable. You run a defined set of prompts and measure
-the result: an attack-success rate, an accuracy, a refusal rate. Because the set
-is fixed, you can run it again on every change and watch the number move.
+AI accelerates the pace of software development, and increases the surface area for cybersecurity attacks. Many known attacks with AI use 'safety' techniques like impersonation or low-resource language switching in order to elicit security exploits.
 
-That makes evals the thing you gate a release on. Run them in CI, set a
-threshold, and a regression fails the build the same way a broken unit test
-would.
+At Konsenso, we believe that you can't work on one without the other. 
 
-The tradeoff is that an eval only tests what's in the set, so it won't find a
-new failure on its own. That's why the two go together: red teaming finds what
-to worry about, and an eval turns it into something you can track release over
-release.

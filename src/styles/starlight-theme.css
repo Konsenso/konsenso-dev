@@ -37,6 +37,7 @@
   --sl-color-accent-low: #10265c;
   --sl-color-accent: #2b6cff;
   --sl-color-accent-high: #b8d3ff;
+  --k-link: #c481f3; /* docs body links: lavender, AA (7.1:1) on dark bg; blue failed */
 
   --sl-color-white: #ffffff;
   --sl-color-gray-1: #ecebe9;
@@ -58,6 +59,7 @@
   --sl-color-accent-low: #d9e6ff;
   --sl-color-accent: #0254ec;
   --sl-color-accent-high: #01337a;
+  --k-link: #7a17c9; /* docs body links: purple, AA (7.1:1) on cream */
 
   --sl-color-white: #131210;
   --sl-color-gray-1: #2a2925;
@@ -95,12 +97,12 @@ a.site-title {
 
 /* ── Links inside docs get the Labs blue underline treatment ── */
 .sl-markdown-content a {
-  color: var(--sl-color-accent);
+  color: var(--k-link);
   text-underline-offset: 0.2em;
-  text-decoration-color: color-mix(in srgb, var(--sl-color-accent) 45%, transparent);
+  text-decoration-color: color-mix(in srgb, var(--k-link) 45%, transparent);
 }
 .sl-markdown-content a:hover {
-  text-decoration-color: var(--sl-color-accent);
+  text-decoration-color: var(--k-link);
 }
 
 /* ── Code blocks: quiet, rounded, mono ── */

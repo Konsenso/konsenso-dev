@@ -4,10 +4,10 @@ import Nav from "../components/Nav.astro";
 import Footer from "../components/Footer.astro";
 
 const steps = [
-  { n: "01", label: "What is AI safety", blurb: "Does it cause harm on its own, with no attacker", href: "/start-here/#what-is-ai-safety" },
-  { n: "02", label: "What is AI security", blurb: "Can someone make it misbehave on purpose", href: "/start-here/#what-is-ai-security" },
-  { n: "03", label: "What is AI red teaming", blurb: "Break it on purpose to find the failures", href: "/start-here/#what-is-ai-red-teaming" },
-  { n: "04", label: "What are AI evals", blurb: "Measure the failures and track them over time", href: "/start-here/#what-are-ai-evals" },
+  { n: "01", label: "What is AI safety", href: "/start-here/" },
+  { n: "02", label: "What is AI security", href: "/start-here/" },
+  { n: "03", label: "What is AI red teaming", blurb: "Break it to find the failures", href: "/start-here/" },
+  { n: "04", label: "What are AI evals", blurb: "Measure and track those failures", href: "/start-here/" },
 ];
 ---
 
@@ -32,7 +32,7 @@ const steps = [
                 <span class="sh-num">{s.n}</span>
                 <span class="sh-text">
                   <span class="sh-label">{s.label}</span>
-                  <span class="sh-blurb">{s.blurb}</span>
+                  {s.blurb && <span class="sh-blurb">{s.blurb}</span>}
                 </span>
                 <span class="sh-arrow" aria-hidden="true">↗</span>
               </a>
@@ -55,11 +55,11 @@ const steps = [
   .sh-glow { width:240px; height:240px; right:-60px; bottom:-80px; }
   .sh-inner { position:relative; z-index:2; }
   .start-here h2 { color:#fff; font-size:1.3rem; margin:0 0 8px; }
-  .sh-list a { display:grid; grid-template-columns:auto 1fr auto; align-items:start; gap:18px; padding:22px 0; border-top:1px solid rgba(255,255,255,.12); color:#fff; font-size:1.2rem; }
+  .sh-list a { display:grid; grid-template-columns:auto 1fr auto; align-items:center; gap:18px; min-height:74px; padding:8px 0; border-top:1px solid rgba(255,255,255,.12); color:#fff; font-size:1.2rem; }
   .sh-list a:first-of-type { border-top:none; }
-  .sh-text { display:flex; flex-direction:column; gap:5px; }
+  .sh-text { display:flex; flex-direction:column; gap:4px; }
   .sh-blurb { font-size:.9rem; line-height:1.35; color:rgba(255,255,255,.72); }
-  .sh-num { font-family:var(--font-mono); font-size:.9rem; font-variant-numeric:tabular-nums; color:var(--blue-medium); line-height:1.6; }
+  .sh-num { font-family:var(--font-mono); font-size:.9rem; font-variant-numeric:tabular-nums; color:var(--blue-medium); }
   .sh-arrow { font-family:var(--font-mono); font-size:1rem; color:var(--blue-light); transition:transform .18s cubic-bezier(.22,1,.36,1); }
   .sh-list a:hover { color:var(--blue-light); }
   .sh-list a:hover .sh-arrow { transform:translate(2px,-2px); }
